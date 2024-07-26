@@ -55,13 +55,12 @@ public class PermissionsPolicyScanRule extends PluginPassiveScanner
     public void scanHttpResponseReceive(HttpMessage httpMessage, int id, Source source) {
         long start = System.currentTimeMillis();
 
-        if (!httpMessage.getResponseHeader().isHtml()
-                && !ResourceIdentificationUtils.isJavaScript(httpMessage)) {
-            return;
-        }
+        // Only applies to html files, but also check everything on Low threshold
         if (HttpStatusCode.isRedirection(httpMessage.getResponseHeader().getStatusCode())
-                && !AlertThreshold.LOW.equals(this.getAlertThreshold())) {
-            return;
+                || !httpMessage.getResponseHeader().isHtml()) {
+            if (!AlertThreshold.LOW.equals(this.getAlertThreshold())) {
+                return;
+            }
         }
 
         // Feature-Policy is supported by Chrome 60+, Firefox 65+, Opera 47+, but not by Internet

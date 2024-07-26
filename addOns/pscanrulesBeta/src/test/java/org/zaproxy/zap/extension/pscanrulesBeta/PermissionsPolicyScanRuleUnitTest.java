@@ -66,14 +66,13 @@ class PermissionsPolicyScanRuleUnitTest extends PassiveScannerTest<PermissionsPo
     }
 
     @Test
-    void shouldRaiseAlertOnMissingHeaderJavaScript() throws Exception {
+    void shouldNotRaiseAlertOnMissingHeaderJavaScript() throws Exception {
         // Given
         msg.getResponseHeader().addHeader(HttpHeader.CONTENT_TYPE, "text/javascript");
         // When
         scanHttpResponseReceive(msg);
         // Then
-        assertEquals(1, alertsRaised.size());
-        assertThat(alertsRaised.get(0), hasNameLoadedWithKey(MESSAGE_PREFIX + "name"));
+        assertEquals(0, alertsRaised.size());
     }
 
     @Test

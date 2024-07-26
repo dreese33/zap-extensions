@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## Unreleased
 
 
+## [41] - 2024-07-26
+### Changed
+- Permissions policy no longer scans Javascript file types, unless at Low threshold
+
 ## [40] - 2024-07-24
 ### Removed
 - Polyfill scan rule, promoted to release.
